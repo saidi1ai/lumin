@@ -7,10 +7,23 @@ import pdfplumber
 import docx
 from PIL import Image
 import pytesseract
+from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM
 from sklearn.feature_extraction.text import TfidfVectorizer
+from huggingface_hub import InferenceClient
+from transformers import pipeline
 from huggingface_hub import login
 login()
 
+
+
+messages = [
+    {"role": "user", "content": "Who are you?"},
+]
+pipe = pipeline("text-generation", model="meta-llama/Meta-Llama-3-70B-Instruct")
+pipe(messages)
+
+
+HUGGINGFACEHUB_API_TOKEN = "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"
 HUGGINGFACEHUB_API_TOKEN = "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"
 API_URL = "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B"
 headers = {"Authorization": f"Bearer {HUGGINGFACEHUB_API_TOKEN}"}
